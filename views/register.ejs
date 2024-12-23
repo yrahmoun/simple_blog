@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SimpleBlog | Register</title>
+  </head>
+  <body>
+    <div class="header">
+        <h1>SimpleBlog</h1>
+    </div>
+    <div id="form">
+        <form action="/register" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button class="buttons">Register</button>
+        </form>
+        <a href="/login"><button class="buttons">Login</button></a>
+    </div>
+  </body>
+</html>
