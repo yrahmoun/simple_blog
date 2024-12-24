@@ -7,6 +7,8 @@ const app = express();
 dotenv.config();
 
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended: true}));
+
 
 const port = process.env.PORT || 5000;
 
