@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SimpleBlog | Home</title>
+    <title>SimpleBlog | Profile</title>
 </head>
 <body>
     <div class="blogSection">
         <%- include("./partials/nav") %>
+        <div class="myTitleSection">
+            <h2 class="myTitle">My blogs:</h2>
+        </div>
         <% if (blogs && blogs.length > 0 ) { %>
             <% blogs.forEach((blog) => { %>
                 <div class="blogBox">
                     <h3 class="blogTitle"><%= blog.title %></h3>
-                    <h4 class="blogAuthor">By: <%= blog.author.username %></h4>
                     <p class="blogContent"><%= blog.content %></p>
                 </div>
             <% }) %>

@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const blogRoutes = require("./routes/blogRoutes");
+const profileRoutes = require("./routes/profileRoutes");
 const mongoose = require("mongoose");
 const session = require("express-session");
 
@@ -35,3 +36,4 @@ app.listen(port, () => {
 
 app.use(userRoutes);
 app.use(blogRoutes);
+app.use(profileRoutes);
