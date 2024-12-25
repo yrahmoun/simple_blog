@@ -71,11 +71,4 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
-  if (!req.session.user) {
-    return res.redirect("/login");
-  }
-  res.render("home", { user: req.session.user });
-});
-
 module.exports = router;

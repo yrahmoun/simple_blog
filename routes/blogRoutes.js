@@ -26,4 +26,19 @@ router.post("/create", (req, res) => {
     });
 });
 
+router.get("/", (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/login");
+  }
+  Blog.find()
+    .populate("author", "username")
+    .sort({createdAt: -1})
+    .then((blogs) => {
+      res.render("home", {blogs});
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+});
+
 module.exports = router;

@@ -6,7 +6,19 @@
     <title>SimpleBlog | Home</title>
 </head>
 <body>
-    <%- include("./partials/nav") %>
-    <p>welcome to the blog <%= user %></p>
+    <div class="blogSection">
+        <%- include("./partials/nav") %>
+        <% if (blogs && blogs.length > 0 ) { %>
+            <% blogs.forEach((blog) => { %>
+                <div class="blogBox">
+                    <h3 class="blogTitle"><%= blog.title %></h3>
+                    <h4 class="blogPoster">By: <%= blog.author.username %></h4>
+                    <p class="blogContent"><%= blog.content %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>no blogs have been posted yet.</p>
+        <% } %>
+    </div>
 </body>
 </html>
