@@ -13,7 +13,7 @@ const blogSchema = new Schema({
     },
     author: {
         type: Schema.Types.ObjectId,
-        ref: User
+        ref: "User"
     }
 }, {timestamps: true});
 

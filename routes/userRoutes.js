@@ -21,7 +21,7 @@ router.post("/register", (req, res) => {
         } else {
           errorMessage = "user already exists";
         }
-        res.render("register", { errorMessage });
+        return res.render("register", { errorMessage });
       }
       const user = new User({ username, email, password });
       return user.save();
@@ -29,6 +29,7 @@ router.post("/register", (req, res) => {
     .then((savedUser) => {
       if (savedUser) {
         req.session.user = savedUser.username;
+        req.session.userId = savedUser._id;
         return res.redirect("/");
       }
     })
@@ -57,6 +58,7 @@ router.post("/login", (req, res) => {
         } else {
           console.log(`${foundUser.username} has loggoed in`);
           req.session.user = foundUser.username;
+          req.session.userId = foundUser._id;
           return res.redirect("/");
         }
       } else {
