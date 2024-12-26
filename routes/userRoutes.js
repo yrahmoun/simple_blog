@@ -71,4 +71,16 @@ router.post("/login", (req, res) => {
     });
 });
 
+router.post("/logout", (req, res) => {
+  const user = req.session.user;
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("logout failed.");
+    }
+    res.status(200).send("user has successfully lpgged out");
+    console.log(`${user} has logged out`);
+  });
+});
+
 module.exports = router;
