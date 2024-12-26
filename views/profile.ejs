@@ -16,6 +16,7 @@
                 <div class="blogBox">
                     <h3 class="blogTitle"><%= blog.title %></h3>
                     <p class="blogContent"><%= blog.content %></p>
+                    <button class="deleteBtn" data-blogId="<%= blog._id %>">delete</button>
                 </div>
             <% }) %>
         <% } else { %>
