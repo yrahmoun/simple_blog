@@ -1,5 +1,7 @@
 const logoutBtn = document.getElementById("logoutBtn");
 const deleteBtn = document.querySelectorAll(".deleteBtn");
+const searchBar = document.getElementById("searchBar");
+const searchResults = document.getElementById("searchResults");
 
 logoutBtn.addEventListener("click", async () => {
   try {
@@ -35,4 +37,27 @@ deleteBtn.forEach((button) => {
       console.error(result.message);
     }
   });
+});
+
+searchBar.addEventListener("input", async (event) => {
+  const query = event.target.value.trim();
+  if (!query.length) {
+    searchResults.innerHTML = "";
+    return;
+  }
+  try {
+    const response = await fetch(`/search?query=${query}`);
+    const result = await response.json();
+    searchResults.innerHTML = result
+      .map((user) =>
+        `
+          <li class="searchItem">
+            <a href="/profile/${user.username}">${user.username}</a>
+          </li>
+        `
+      )
+      .join("");
+  } catch (err) {
+    console.error(err);
+  }
 });
