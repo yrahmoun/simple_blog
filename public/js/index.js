@@ -41,8 +41,10 @@ deleteBtn.forEach((button) => {
 
 searchBar.addEventListener("input", async (event) => {
   const query = event.target.value.trim();
+  searchResults.style.display= "block";
   if (!query.length) {
     searchResults.innerHTML = "";
+    searchResults.style.display= "none";
     return;
   }
   try {

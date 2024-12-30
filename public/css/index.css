@@ -94,3 +94,112 @@ a .buttons:hover {
 a .buttons:active {
   background-color: #1565c0;
 }
+
+/* Navigation Box */
+.navBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #5d935f;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+#title {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+/* Search Bar */
+.search {
+  position: relative;
+}
+
+#searchBar {
+  position: block;
+  margin-top: 5px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  font-size: 1em;
+}
+
+#searchBar::placeholder {
+  color: #999;
+}
+
+#searchResults {
+  display: none;
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 100%;
+  max-height: 150px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
+
+#searchResults a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+#searchResults li {
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+#searchResults li:last-child {
+  border-bottom: none;
+}
+
+#searchResults li:hover {
+  background-color: #f1f1f1;
+}
+
+/* Navigation Menu */
+.navMenu ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+}
+
+.navMenu a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+.navMenu li {
+  cursor: pointer;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.navMenu li:hover {
+  background-color: hwb(122 43% 42%);
+}
+
+#logoutBtn {
+  background-color: #f44336;
+  color: white;
+  border-radius: 5px;
+  padding: 8px 15px;
+  transition: background-color 0.3s ease;
+}
+
+#logoutBtn:hover {
+  background-color: #e53935;
+}
