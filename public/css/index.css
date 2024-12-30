@@ -203,3 +203,68 @@ a .buttons:active {
 #logoutBtn:hover {
   background-color: #e53935;
 }
+
+/* Blog Form Styling */
+.blogForm {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.blogForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.blogForm label {
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 1em;
+  color: #333;
+}
+
+.blogForm input,
+.blogForm textarea {
+  width: 98%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+.blogForm textarea {
+  height: 25vh;
+  resize: none;
+}
+
+.blogForm input:focus,
+.blogForm textarea:focus {
+  border-color: #5d935f;
+  outline: none;
+  box-shadow: 0 0 5px rgba(93, 147, 95, 0.5);
+}
+
+#blogSubmit {
+  padding: 10px 15px;
+  background-color: #5d935f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#blogSubmit:hover {
+  background-color: #45a049;
+}
+
+#blogSubmit:active {
+  background-color: #3e8e41;
+}
