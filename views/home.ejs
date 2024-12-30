@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
+    <%- include("./partials/nav") %>
     <div class="blogSection">
-        <%- include("./partials/nav") %>
         <% if (blogs && blogs.length > 0 ) { %>
             <% blogs.forEach((blog) => { %>
                 <div class="blogBox">
