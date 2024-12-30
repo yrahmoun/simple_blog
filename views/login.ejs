@@ -4,20 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SimpleBlog | Login</title>
+    <link rel="stylesheet" href="/css/index.css">
   </head>
   <body>
     <div class="header">
         <h1>SimpleBlog</h1>
     </div>
-    <div id="form">
+    <div class="form">
         <% if (errorMessage) { %>
           <p class="errorMessage"><%= errorMessage %></p>
         <% } %>
         <form action="/login" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <label for="username">Username:</label></br>
+            <input type="text" id="username" name="username" required></br>
+            <label for="password">Password:</label></br>
+            <input type="password" id="password" name="password" required></br>
             <button class="buttons">Login</button>
         </form>
         <a href="/register"><button class="buttons">Register</button></a>
