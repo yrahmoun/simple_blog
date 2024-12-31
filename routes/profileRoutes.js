@@ -75,4 +75,52 @@ router.delete("/profile", (req, res) => {
     });
 });
 
+router.get("/profile/:blogId/edit", async (req, res) => {
+  if (!req.session.user) {
+    return res.redirect("/");
+  }
+  const blogId = req.params.blogId;
+  try {
+    const blog = await Blog.findById(blogId).populate("author", "username");
+    if (!blog) {
+      return res.status(404).json({ error: "blog doesn't exist" });
+    }
+    if (blog.author.username !== req.session.user) {
+      return res.status(401).json({ error: "unauthorized access" });
+    }
+    const { title, content } = blog;
+    res.render("edit", { blogId, title, content });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "error fetching data" });
+  }
+});
+
+router.put("/profile/:blogId", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: "unauthorized access" });
+  }
+  const blogId = req.params.blogId;
+  const { title, content } = req.body;
+  if (!title || !content) {
+    return res.status(400).json({ error: "Title and content are required" });
+  }
+  try {
+    const blog = await Blog.findById(blogId).populate("author", "username");
+    if (!blog) {
+      return res.status(404).json({ error: "blog doesn't exist" });
+    }
+    if (blog.author.username !== req.session.user) {
+      return res.status(401).json({ error: "unauthorized access" });
+    }
+    blog.title = title;
+    blog.content = content;
+    await blog.save();
+    return res.redirect("/profile");
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ error: "error fetching data" });
+  }
+});
+
 module.exports = router;

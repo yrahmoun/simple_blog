@@ -7,6 +7,7 @@ const searchRoutes = require("./routes/searchRoutes");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const path = require("path");
+const methodOverride = require('method-override');
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,7 @@ app.set("view engine", "ejs");
 app.use(express.static(dirPath));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(methodOverride("_method"));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

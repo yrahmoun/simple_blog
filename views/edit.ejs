@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimpleBlog | Edit</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <%- include("./partials/nav") %>
+    <div class="blogForm">
+        <form action="/profile/<%= blogId %>?_method=PUT" method="post">
+            <label for="title">Blog title:</label>
+            <input id="title" name="title" required value="<%= title %>">
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" placeholder="Type here..." required><%= content %></textarea></br>
+            <button id="blogSubmit">Submit</button>
+        </form>
+    </div>
+    <script src="/js/index.js"></script>
+</body>
+</html>

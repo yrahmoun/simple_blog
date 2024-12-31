@@ -325,8 +325,21 @@ a .buttons:active {
   font-size: 1.2em;
 }
 
+.blogEditSection {
+  display: flex;
+}
+
+.editBtn {
+  background-color: #45a049;
+  margin-right: 10px;
+}
+
 .deleteBtn {
   background-color: #f44336;
+}
+
+.deleteBtn,
+.editBtn {
   color: white;
   border: none;
   border-radius: 5px;
@@ -335,6 +348,10 @@ a .buttons:active {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.editBtn:hover {
+  background-color: #3e8e41;
 }
 
 .deleteBtn:hover {
