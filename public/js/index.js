@@ -1,21 +1,23 @@
-const logoutBtn = document.getElementById("logoutBtn");
+const logoutBtn = document.querySelectorAll(".logout");
 const deleteBtn = document.querySelectorAll(".deleteBtn");
 const searchBar = document.getElementById("searchBar");
 const searchResults = document.getElementById("searchResults");
 
-logoutBtn.addEventListener("click", async () => {
-  try {
-    const response = await fetch("/logout", { method: "POST" });
-    const message = await response.text();
-    if (response.ok) {
-      console.log(message, response.statusText);
-      window.location.href = "/login";
-    } else {
-      console.error(message);
+logoutBtn.forEach((button) => {
+  button.addEventListener("click", async () => {
+    try {
+      const response = await fetch("/logout", { method: "POST" });
+      const message = await response.text();
+      if (response.ok) {
+        console.log(message, response.statusText);
+        window.location.href = "/login";
+      } else {
+        console.error(message);
+      }
+    } catch (err) {
+      console.error("an error ocuured during logout:", err);
     }
-  } catch (err) {
-    console.error("an error ocuured during logout:", err);
-  }
+  });
 });
 
 deleteBtn.forEach((button) => {
@@ -41,18 +43,19 @@ deleteBtn.forEach((button) => {
 
 searchBar.addEventListener("input", async (event) => {
   const query = event.target.value.trim();
-  searchResults.style.display= "block";
+  searchResults.style.display = "block";
   if (!query.length) {
     searchResults.innerHTML = "";
-    searchResults.style.display= "none";
+    searchResults.style.display = "none";
     return;
   }
   try {
     const response = await fetch(`/search?query=${query}`);
     const result = await response.json();
     searchResults.innerHTML = result
-      .map((user) =>
-        `
+      .map(
+        (user) =>
+          `
           <li class="searchItem">
             <a href="/profile/${user.username}">${user.username}</a>
           </li>
