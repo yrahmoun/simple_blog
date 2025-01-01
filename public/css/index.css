@@ -435,4 +435,28 @@ a .buttons:active {
   .sideBar {
     width: 100vw;
   }
+  .header {
+    font-size: 1rem;
+  }
+  .form {
+    max-width: 300px;
+  }
+  #title {
+    font-size: 1.2rem;
+  }
+  #searchBar {
+    max-width: 130px;
+  }
+}
+
+@media(max-width: 400px) {
+  #searchBar {
+    max-width: 100px;
+  }
+}
+
+@media(max-width: 355px) {
+  .form {
+    max-width: 250px;
+  }
 }
