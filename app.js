@@ -1,5 +1,5 @@
 const express = require("express");
-const dotenv = require("dotenv");
+require("dotenv").config();
 const userRoutes = require("./routes/userRoutes");
 const blogRoutes = require("./routes/blogRoutes");
 const profileRoutes = require("./routes/profileRoutes");
@@ -11,7 +11,6 @@ const path = require("path");
 const methodOverride = require("method-override");
 
 const app = express();
-dotenv.config();
 const dirPath = path.join(__dirname, "public");
 
 app.set("view engine", "ejs");

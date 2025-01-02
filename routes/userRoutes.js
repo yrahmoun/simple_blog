@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/multerConfig");
+const cloudinary = require("../middleware/cloudinaryConfig");
 const User = require("../models/userModel");
 
 router.get("/register", (req, res) => {
@@ -9,33 +11,48 @@ router.get("/register", (req, res) => {
   res.render("register", { errorMessage: null });
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", upload.single("profilePic"), async (req, res) => {
   const { username, email, password } = req.body;
+  try {
+    const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+    if (existingUser) {
+      let errorMessage = "";
+      if (existingUser.email === email) {
+        errorMessage = "email already exists";
+      } else {
+        errorMessage = "user already exists";
+      }
+      return res.render("register", { errorMessage });
+    }
+    let profilePic =
+      "https://res.cloudinary.com/drrhpzcb0/image/upload/v1735809308/yrucsbdwtfphubtd8yhs.jpg"; // Default profile pic URL
 
-  User.findOne({ $or: [{ username }, { email }] })
-    .then((existingUser) => {
-      if (existingUser) {
-        let errorMessage = "";
-        if (existingUser.email === email) {
-          errorMessage = "email already exists";
-        } else {
-          errorMessage = "user already exists";
-        }
-        return res.render("register", { errorMessage });
-      }
-      const user = new User({ username, email, password });
-      return user.save();
-    })
-    .then((savedUser) => {
-      if (savedUser) {
-        req.session.user = savedUser.username;
-        req.session.userId = savedUser._id;
-        return res.redirect("/");
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    if (req.file) {
+      const uploadResult = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          { resource_type: "image" },
+          (error, result) => {
+            if (error) {
+              reject(error);
+            }
+            resolve(result);
+          }
+        );
+        uploadStream.end(req.file.buffer);
+      });
+      profilePic = uploadResult.secure_url;
+    }
+    const user = await new User({ username, email, password, profilePic });
+    const savedUser = await user.save();
+    if (savedUser) {
+      req.session.user = savedUser.username;
+      req.session.userId = savedUser._id;
+      return res.redirect("/");
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "An error occurred during registration" });
+  }
 });
 
 router.get("/login", (req, res) => {

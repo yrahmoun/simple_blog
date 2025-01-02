@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
     return res.redirect("/login");
   }
   Blog.find()
-    .populate("author", "username")
+    .populate("author", "username profilePic")
     .sort({createdAt: -1})
     .then((blogs) => {
       res.render("home", {blogs});
