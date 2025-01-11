@@ -439,7 +439,7 @@ a .buttons:active {
 /* blog Pic */
 
 .blogPic {
-  width: 800px;
+  width: 870px;
   height: 400px;
   overflow: hidden;
   border-radius: 3%;
@@ -458,6 +458,9 @@ a .buttons:active {
   .blogSection{
     max-width: 700px;
   }
+  .blogPic {
+    max-width: 670px;
+  }
 }
 
 @media(max-width: 850px) {
@@ -473,6 +476,9 @@ a .buttons:active {
   .blogSection{
     max-width: 550px;
   }
+  .blogPic {
+    max-width: 520px;
+  }
   .blogForm {
     max-width: 500px;
   }
@@ -481,6 +487,10 @@ a .buttons:active {
 @media(max-width: 650px) {
   .blogSection{
     max-width: 450px;
+  }
+  .blogPic {
+    max-width: 420px;
+    height: 250px;
   }
   .blogForm {
     max-width: 430px;
@@ -507,6 +517,10 @@ a .buttons:active {
     max-width: 370px;
     margin: 20px auto;
   }
+  .blogPic {
+    max-width: 340px;
+    height: 200px;
+  }
   .blogForm {
     max-width: 360px;
   }
@@ -515,6 +529,9 @@ a .buttons:active {
 @media(max-width: 440px) {
   .blogSection{
     max-width: 330px;
+  }
+  .blogPic {
+    max-width: 300px;
   }
   .blogForm {
     max-width: 290px;
@@ -527,6 +544,9 @@ a .buttons:active {
   }
   .blogSection{
     max-width: 270px;
+  }
+  .blogPic {
+    max-width: 240px;
   }
   .blogForm {
     max-width: 270px;
