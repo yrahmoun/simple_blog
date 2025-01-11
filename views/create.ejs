@@ -9,9 +9,11 @@
 <body>
     <%- include("./partials/nav") %>
     <div class="blogForm">
-        <form action="/create" method="post">
+        <form action="/create" method="post" enctype="multipart/form-data">
             <label for="title">Blog title:</label>
             <input id="title" name="title" required>
+            <label for="blogPic">Image: (optional)</label>
+            <input id="blogPic" name="blogPic" type="file" accept="image/*">
             <label for="content">Content:</label>
             <textarea id="content" name="content" placeholder="Type here..." required></textarea></br>
             <button id="blogSubmit">Submit</button>

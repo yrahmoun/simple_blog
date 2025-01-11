@@ -14,6 +14,9 @@ const blogSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    blogPic: {
+        type: String,
     }
 }, {timestamps: true});
 

@@ -21,6 +21,11 @@
                         <% } %>
                         <h4 class="blogAuthor">By: <%= blog.author.username %></h4>
                     </a>
+                    <% if (blog.blogPic) { %>
+                        <div class="blogPic">
+                            <img src="<%= blog.blogPic %>">
+                        </div>
+                    <% } %>
                     <p class="blogContent"><%= blog.content %></p>
                 </div>
             <% }) %>
