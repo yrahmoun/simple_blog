@@ -3,6 +3,7 @@ const router = express.Router();
 const upload = require("../middleware/multerConfig");
 const cloudinary = require("../middleware/cloudinaryConfig");
 const User = require("../models/userModel");
+const get_image_url = require("../middleware/imageUpload");
 
 router.get("/register", (req, res) => {
   if (req.session.user) {
@@ -28,19 +29,7 @@ router.post("/register", upload.single("profilePic"), async (req, res) => {
       "https://res.cloudinary.com/drrhpzcb0/image/upload/v1735809308/yrucsbdwtfphubtd8yhs.jpg"; // Default profile pic URL
 
     if (req.file) {
-      const uploadResult = await new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-          { resource_type: "image" },
-          (error, result) => {
-            if (error) {
-              reject(error);
-            }
-            resolve(result);
-          }
-        );
-        uploadStream.end(req.file.buffer);
-      });
-      profilePic = uploadResult.secure_url;
+      profilePic = await get_image_url(req.file.buffer);
     }
     const user = await new User({ username, email, password, profilePic });
     const savedUser = await user.save();
