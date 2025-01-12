@@ -16,6 +16,7 @@ const userSchema = new Schema({
   },
   profilePic: {
     type: String,
+    default: "https://res.cloudinary.com/drrhpzcb0/image/upload/v1735809308/yrucsbdwtfphubtd8yhs.jpg"
   },
 });
 

@@ -167,6 +167,27 @@ a .buttons:active {
   background-color: #f1f1f1;
 }
 
+.searchContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.searchPic {
+  overflow: hidden;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.searchPic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
 /* Navigation Menu */
 .navMenu ul {
   list-style: none;
@@ -427,6 +448,7 @@ a .buttons:active {
   height: 70px;
   border-radius: 50%;
   overflow: hidden;
+  margin-bottom: 10px;
 }
 
 .authorPic img {
@@ -513,6 +535,10 @@ a .buttons:active {
   #searchBar {
     max-width: 130px;
   }
+  .searchPic {
+    width: 40px;
+    height: 40px;
+  }
   .blogSection{
     max-width: 370px;
     margin: 20px auto;
@@ -541,6 +567,10 @@ a .buttons:active {
 @media(max-width: 400px) {
   #searchBar {
     max-width: 100px;
+  }
+  .searchPic {
+    width: 30px;
+    height: 30px;
   }
   .blogSection{
     max-width: 270px;

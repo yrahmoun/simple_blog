@@ -57,7 +57,12 @@ searchBar.addEventListener("input", async (event) => {
         (user) =>
           `
           <li class="searchItem">
-            <a href="/profile/${user.username}">${user.username}</a>
+            <div class="searchContainer">
+              <div class="searchPic">
+                <img src="${user.profilePic}">
+              </div>
+              <a href="/profile/${user.username}">${user.username}</a>
+            </div>
           </li>
         `
       )
