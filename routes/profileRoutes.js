@@ -4,56 +4,41 @@ const User = require("../models/userModel");
 
 const router = express.Router();
 
-router.get("/profile", (req, res) => {
+router.get("/profile", async (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
   const userId = req.session.userId;
-  Blog.find({ author: userId })
-    .sort({ createdAt: -1 })
-    .then((blogs) => {
-      res.render("profile", { blogs });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  try {
+    const blogs = await Blog.find({ author: userId }).sort({ createdAt: -1 });
+    const user = await User.findById(userId);
+    res.render("profile", { blogs, user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "server error" });
+  }
 });
 
-function getUserId(username) {
-  return User.findOne({ username })
-    .then((user) => {
-      if (user) {
-        return user._id;
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-router.get("/profile/:user", (req, res) => {
+router.get("/profile/:user", async (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
-  const user = req.params.user;
-  if (user === req.session.user) {
+  const username = req.params.user;
+  if (username === req.session.user) {
     return res.redirect("/profile");
   }
-  getUserId(user)
-    .then((userId) => {
-      if (!userId) {
-        return res.redirect("/");
-      }
-      return Blog.find({ author: userId })
-        .sort({ createdAt: -1 })
-        .populate("author", "username");
-    })
-    .then((blogs) => {
-      res.render("userProfile", { blogs });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  try {
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.redirect("/");
+    }
+    const blogs = await Blog.find({ author: user._id })
+      .sort({ createdAt: -1 })
+    res.render("userProfile", { blogs, user });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "server error" });
+  }
 });
 
 router.delete("/profile", (req, res) => {

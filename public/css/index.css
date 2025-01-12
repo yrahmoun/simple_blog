@@ -293,6 +293,7 @@ a .buttons:active {
 }
 
 /* Blog Section Styling */
+.infoContainer,
 .blogSection {
   width: 100%;
   max-width: 900px;
@@ -433,7 +434,7 @@ a .buttons:active {
 }
 
 .sideBar li:hover {
-  background-color: hsl(0, 0%, 85%);;
+  background-color: hsl(0, 0%, 85%);
 }
 
 #menuClose {
@@ -476,8 +477,9 @@ a .buttons:active {
 
 /* Media Queries */
 
-@media(max-width: 955px) {
-  .blogSection{
+@media (max-width: 955px) {
+  .infoContainer,
+  .blogSection {
     max-width: 700px;
   }
   .blogPic {
@@ -485,7 +487,7 @@ a .buttons:active {
   }
 }
 
-@media(max-width: 850px) {
+@media (max-width: 850px) {
   .navMenu {
     display: none;
   }
@@ -494,8 +496,9 @@ a .buttons:active {
   }
 }
 
-@media(max-width: 765px) {
-  .blogSection{
+@media (max-width: 765px) {
+  .infoContainer,
+  .blogSection {
     max-width: 550px;
   }
   .blogPic {
@@ -506,8 +509,9 @@ a .buttons:active {
   }
 }
 
-@media(max-width: 650px) {
-  .blogSection{
+@media (max-width: 650px) {
+  .infoContainer,
+  .blogSection {
     max-width: 450px;
   }
   .blogPic {
@@ -519,7 +523,7 @@ a .buttons:active {
   }
 }
 
-@media(max-width: 500px) {
+@media (max-width: 500px) {
   .sideBar {
     width: 100vw;
   }
@@ -539,7 +543,8 @@ a .buttons:active {
     width: 40px;
     height: 40px;
   }
-  .blogSection{
+  .infoContainer,
+  .blogSection {
     max-width: 370px;
     margin: 20px auto;
   }
@@ -552,8 +557,9 @@ a .buttons:active {
   }
 }
 
-@media(max-width: 440px) {
-  .blogSection{
+@media (max-width: 440px) {
+  .infoContainer,
+  .blogSection {
     max-width: 330px;
   }
   .blogPic {
@@ -564,7 +570,7 @@ a .buttons:active {
   }
 }
 
-@media(max-width: 400px) {
+@media (max-width: 400px) {
   #searchBar {
     max-width: 100px;
   }
@@ -572,7 +578,8 @@ a .buttons:active {
     width: 30px;
     height: 30px;
   }
-  .blogSection{
+  .infoContainer,
+  .blogSection {
     max-width: 270px;
   }
   .blogPic {
@@ -583,7 +590,7 @@ a .buttons:active {
   }
 }
 
-@media(max-width: 355px) {
+@media (max-width: 355px) {
   .form {
     max-width: 250px;
   }
