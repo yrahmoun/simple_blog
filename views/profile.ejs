@@ -16,6 +16,11 @@
             <% blogs.forEach((blog) => { %>
                 <div class="blogBox">
                     <h3 class="blogTitle"><%= blog.title %></h3>
+                    <% if (blog.blogPic) { %>
+                        <div class="blogPic">
+                            <img src="<%= blog.blogPic %>">
+                        </div>
+                    <% } %>
                     <p class="blogContent"><%= blog.content %></p>
                     <div class="blogEditSection">
                         <a href="/profile/<%= blog._id %>/edit"><button class="editBtn">edit</button></a>
