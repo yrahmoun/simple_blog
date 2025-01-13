@@ -2,6 +2,7 @@ const logoutBtn = document.querySelectorAll(".logout");
 const deleteBtn = document.querySelectorAll(".deleteBtn");
 const searchBar = document.getElementById("searchBar");
 const searchResults = document.getElementById("searchResults");
+const likeButton = document.querySelectorAll(".likeButton");
 
 logoutBtn.forEach((button) => {
   button.addEventListener("click", async () => {
@@ -70,4 +71,32 @@ searchBar.addEventListener("input", async (event) => {
   } catch (err) {
     console.error(err);
   }
+});
+
+likeButton.forEach((button) => {
+  button.addEventListener("click", async (e) => {
+    const blogId = button.getAttribute("data-id");
+    try {
+      const response = await fetch("/blogs/likes", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ blogId }),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.message);
+        if (data.likeStatus) {
+          e.target.classList.add("likedButton");
+        } else {
+          e.target.classList.remove("likedButton");
+        }
+      } else {
+        console.error("Failed to update likes");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  });
 });

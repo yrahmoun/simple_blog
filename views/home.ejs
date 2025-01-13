@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SimpleBlog | Home</title>
-    <link rel="stylesheet" href="/css/index.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/index.css" />
+  </head>
+  <body>
     <%- include("./partials/nav") %>
     <div class="blogSection">
-        <% if (blogs && blogs.length > 0 ) { %>
-            <% blogs.forEach((blog) => { %>
-                <div class="blogBox">
-                    <h3 class="blogTitle"><%= blog.title %></h3>
-                    <a href="/profile/<%= blog.author.username %>">
-                        <% if (blog.author.profilePic) { %>
-                            <div class="authorPic">
-                                <img src="<%= blog.author.profilePic %>">
-                            </div>
-                        <% } %>
-                        <h4 class="blogAuthor">By: <%= blog.author.username %></h4>
-                    </a>
-                    <% if (blog.blogPic) { %>
-                        <div class="blogPic">
-                            <img src="<%= blog.blogPic %>">
-                        </div>
-                    <% } %>
-                    <p class="blogContent"><%= blog.content %></p>
-                </div>
-            <% }) %>
-        <% } else { %>
-            <p>no blogs have been posted yet.</p>
+      <% if (blogs && blogs.length > 0 ) { %> <% blogs.forEach((blog) => { %>
+      <div class="blogBox">
+        <h3 class="blogTitle"><%= blog.title %></h3>
+        <a href="/profile/<%= blog.author.username %>">
+          <% if (blog.author.profilePic) { %>
+          <div class="authorPic">
+            <img src="<%= blog.author.profilePic %>" />
+          </div>
+          <% } %>
+          <h4 class="blogAuthor">By: <%= blog.author.username %></h4>
+        </a>
+        <% if (blog.blogPic) { %>
+        <div class="blogPic">
+          <img src="<%= blog.blogPic %>" />
+        </div>
         <% } %>
+        <p class="blogContent"><%= blog.content %></p>
+        <button
+          class="likeButton <%= blog.likeStatus ? 'likedButton' : '' %>"
+          data-id="<%= blog._id %>"
+        >
+          Like
+        </button>
+      </div>
+      <% }) %> <% } else { %>
+      <p>no blogs have been posted yet.</p>
+      <% } %>
     </div>
     <script src="/js/index.js"></script>
     <script src="/js/sidebar.js"></script>
-</body>
+  </body>
 </html>

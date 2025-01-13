@@ -22,7 +22,7 @@ router.post("/create", upload.single("blogPic"), async (req, res) => {
       blogPic = await get_image_url(req.file.buffer);
     } catch (error) {
       console.log(error);
-      return res.status(500).json({error: "unable to upload image"});
+      return res.status(500).json({ error: "unable to upload image" });
     }
   }
   const blog = new Blog({
@@ -42,19 +42,50 @@ router.post("/create", upload.single("blogPic"), async (req, res) => {
     });
 });
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   if (!req.session.user) {
     return res.redirect("/login");
   }
-  Blog.find()
-    .populate("author", "username profilePic")
-    .sort({ createdAt: -1 })
-    .then((blogs) => {
-      res.render("home", { blogs });
-    })
-    .catch((err) => {
-      console.log(err);
+  try {
+    const blogs = await Blog.find()
+      .populate("author", "username profilePic")
+      .sort({ createdAt: -1 });
+    const userId = req.session.userId;
+    const blogsWithLikeStatus = blogs.map((blog) => ({
+      ...blog.toObject(),
+      likeStatus: blog.likes.includes(userId),
+    }));
+    res.render("home", { blogs: blogsWithLikeStatus });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error fetching blogs" });
+  }
+});
+
+router.put("/blogs/likes", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ error: "unauthorized access" });
+  }
+  const blogId = req.body.blogId;
+  try {
+    const blog = await Blog.findById(blogId);
+    if (!blog) {
+      return res.status(404).json({ error: "blog doesn't exist" });
+    }
+    const isLiked = blog.likes.includes(req.session.userId);
+    if (isLiked) {
+      blog.likes.pull(req.session.userId);
+    } else {
+      blog.likes.push(req.session.userId);
+    }
+    await blog.save();
+    res.status(200).json({
+      likeStatus: !isLiked,
+      message: !isLiked ? "you like the blog" : "you unliked the blog",
     });
+  } catch (error) {
+    res.status(500).json({ error: "error liking the blog" });
+  }
 });
 
 module.exports = router;

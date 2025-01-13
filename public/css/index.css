@@ -361,6 +361,7 @@ a .buttons:active {
   background-color: #f44336;
 }
 
+.likeButton,
 .deleteBtn,
 .editBtn {
   color: white;
@@ -370,6 +371,20 @@ a .buttons:active {
   font-size: 1em;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.likeButton {
+  color: #d81953;
+  border: 2px solid #d81953;
+  font-size: 1.3em;
+  padding: 13px 18px;
+}
+
+.likedButton {
+  color: white;
+  border: none;
+  background-color: #d81953;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
