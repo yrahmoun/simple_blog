@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SimpleBlog | Edit</title>
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
     <%- include("./partials/nav") %>
     <div class="blogForm">
-        <form action="/profile/<%= blogId %>?_method=PUT" method="post">
+        <form action="/profile/<%= blog._id %>?_method=PUT" method="post" enctype="multipart/form-data">
             <label for="title">Blog title:</label>
-            <input id="title" name="title" required value="<%= title %>">
+            <input id="title" name="title" required value="<%= blog.title %>">
+            <label for="blogPic">Blog image:</label>
+            <% if (blog.blogPic) { %>
+                <div class="blogImagePreview">
+                    <img src="<%= blog.blogPic %>">
+                </div>
+            <% } %>
+            <input type="file" accept="image/*" name="blogPic">
             <label for="content">Content:</label>
-            <textarea id="content" name="content" placeholder="Type here..." required><%= content %></textarea></br>
+            <textarea id="content" name="content" placeholder="Type here..." required><%= blog.content %></textarea></br>
             <button id="blogSubmit">Submit</button>
         </form>
     </div>

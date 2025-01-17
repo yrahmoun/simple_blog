@@ -11,6 +11,7 @@
   height: 150px;
 }
 
+.blogImagePreview img,
 .profilePic img {
   width: 100%;
   height: 100%;
@@ -25,6 +26,10 @@
 
 .infoBox p {
   font-size: 1.7em;
+}
+
+.blogImagePreview {
+  width: 100%;
 }
 
 @media (max-width: 955px) {

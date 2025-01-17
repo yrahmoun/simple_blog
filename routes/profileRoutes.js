@@ -1,6 +1,8 @@
 const express = require("express");
 const Blog = require("../models/blogModel");
 const User = require("../models/userModel");
+const upload = require("../middleware/multerConfig");
+const get_image_url = require("../middleware/imageUpload");
 
 const router = express.Router();
 
@@ -32,8 +34,7 @@ router.get("/profile/:user", async (req, res) => {
     if (!user) {
       return res.redirect("/");
     }
-    const blogs = await Blog.find({ author: user._id })
-      .sort({ createdAt: -1 })
+    const blogs = await Blog.find({ author: user._id }).sort({ createdAt: -1 });
     res.render("userProfile", { blogs, user });
   } catch (error) {
     console.log(error);
@@ -73,15 +74,14 @@ router.get("/profile/:blogId/edit", async (req, res) => {
     if (blog.author.username !== req.session.user) {
       return res.status(401).json({ error: "unauthorized access" });
     }
-    const { title, content } = blog;
-    res.render("edit", { blogId, title, content });
+    res.render("edit", { blog });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: "error fetching data" });
   }
 });
 
-router.put("/profile/:blogId", async (req, res) => {
+router.put("/profile/:blogId", upload.single("blogPic"), async (req, res) => {
   if (!req.session.user) {
     return res.status(401).json({ error: "unauthorized access" });
   }
@@ -100,6 +100,16 @@ router.put("/profile/:blogId", async (req, res) => {
     }
     blog.title = title;
     blog.content = content;
+    if (req.file) {
+      let blogPic = null;
+      try {
+        blogPic = await get_image_url(req.file.buffer);
+      } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "unable to upload image" });
+      }
+      blog.blogPic = blogPic;
+    }
     await blog.save();
     return res.redirect("/profile");
   } catch (err) {
