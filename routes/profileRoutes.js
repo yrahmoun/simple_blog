@@ -13,8 +13,12 @@ router.get("/profile", async (req, res) => {
   const userId = req.session.userId;
   try {
     const blogs = await Blog.find({ author: userId }).sort({ createdAt: -1 });
+    const blogsWithLikeStatus = blogs.map((blog) => ({
+      ...blog.toObject(),
+      likeStatuts: blog.likes.includes(userId),
+    }));
     const user = await User.findById(userId);
-    res.render("profile", { blogs, user });
+    res.render("profile", { blogs: blogsWithLikeStatus, user });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "server error" });
@@ -35,7 +39,11 @@ router.get("/profile/:user", async (req, res) => {
       return res.redirect("/");
     }
     const blogs = await Blog.find({ author: user._id }).sort({ createdAt: -1 });
-    res.render("userProfile", { blogs, user });
+    const blogsWithLikeStatus = blogs.map((blog) => ({
+      ...blog.toObject(),
+      likeStatus: blog.likes.includes(req.session.userId),
+    }));
+    res.render("userProfile", { blogs: blogsWithLikeStatus, user });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "server error" });

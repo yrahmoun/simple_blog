@@ -1,40 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SimpleBlog | Profile</title>
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/profile.css">
-</head>
-<body>
-    <%- include("./partials/nav") %>
-    <%- include("./partials/userInfo") %>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <%- include("./partials/nav") %> <%- include("./partials/userInfo") %>
     <div class="blogSection">
-        <div class="myTitleSection">
-            <h2 class="myTitle">My blogs:</h2>
+      <div class="myTitleSection">
+        <h2 class="myTitle">My blogs:</h2>
+      </div>
+      <% if (blogs && blogs.length > 0 ) { %> <% blogs.forEach((blog) => { %>
+      <div class="blogBox">
+        <h3 class="blogTitle"><%= blog.title %></h3>
+        <% if (blog.blogPic) { %>
+        <div class="blogPic">
+          <img src="<%= blog.blogPic %>" />
         </div>
-        <% if (blogs && blogs.length > 0 ) { %>
-            <% blogs.forEach((blog) => { %>
-                <div class="blogBox">
-                    <h3 class="blogTitle"><%= blog.title %></h3>
-                    <% if (blog.blogPic) { %>
-                        <div class="blogPic">
-                            <img src="<%= blog.blogPic %>">
-                        </div>
-                    <% } %>
-                    <p class="blogContent"><%= blog.content %></p>
-                    <div class="blogEditSection">
-                        <a href="/profile/<%= blog._id %>/edit"><button class="editBtn">edit</button></a>
-                        <button class="deleteBtn" data-blogId="<%= blog._id %>">delete</button>
-                    </div>
-                </div>
-            <% }) %>
-        <% } else { %>
-            <p>no blogs have been posted yet.</p>
         <% } %>
+        <p class="blogContent"><%= blog.content %></p>
+        <div class="blogEditSection">
+          <button
+            class="likeButton <%= blog.likeStatus ? 'likedButton' : '' %>"
+            data-id="<%= blog._id %>"
+          >
+            Likes: <%= blog.likes.length %>
+          </button>
+          <a href="/profile/<%= blog._id %>/edit"
+            ><button class="editBtn">edit</button></a
+          >
+          <button class="deleteBtn" data-blogId="<%= blog._id %>">
+            delete
+          </button>
+        </div>
+      </div>
+      <% }) %> <% } else { %>
+      <p>no blogs have been posted yet.</p>
+      <% } %>
     </div>
     <script src="/js/index.js"></script>
     <script src="/js/sidebar.js"></script>
-</body>
+  </body>
 </html>

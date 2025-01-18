@@ -350,11 +350,18 @@ a .buttons:active {
 
 .blogEditSection {
   display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.blogEditSection > :first-child {
+  margin-right: auto;
 }
 
 .editBtn {
   background-color: #45a049;
   margin-right: 10px;
+  margin-left: 10px;
 }
 
 .deleteBtn {

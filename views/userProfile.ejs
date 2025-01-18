@@ -1,36 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SimpleBlog | Profile</title>
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href="/css/profile.css">
-</head>
-<body>
-    <%- include("./partials/nav") %>
-    <%- include("./partials/userInfo") %>
+    <link rel="stylesheet" href="/css/index.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <%- include("./partials/nav") %> <%- include("./partials/userInfo") %>
     <div class="blogSection">
-        <% if (blogs && blogs.length > 0 ) { %>
-            <div class="myTitleSection">
-                <h2 class="myTitle"><%= user.username %>'s blogs:</h2>
-            </div>
-            <% blogs.forEach((blog) => { %>
-                <div class="blogBox">
-                    <h3 class="blogTitle"><%= blog.title %></h3>
-                    <% if (blog.blogPic) { %>
-                        <div class="blogPic">
-                            <img src="<%= blog.blogPic %>">
-                        </div>
-                    <% } %>
-                    <p class="blogContent"><%= blog.content %></p>
-                </div>
-            <% }) %>
-        <% } else { %>
-            <p>no blogs have been posted yet.</p>
+      <% if (blogs && blogs.length > 0 ) { %>
+      <div class="myTitleSection">
+        <h2 class="myTitle"><%= user.username %>'s blogs:</h2>
+      </div>
+      <% blogs.forEach((blog) => { %>
+      <div class="blogBox">
+        <h3 class="blogTitle"><%= blog.title %></h3>
+        <% if (blog.blogPic) { %>
+        <div class="blogPic">
+          <img src="<%= blog.blogPic %>" />
+        </div>
         <% } %>
+        <p class="blogContent"><%= blog.content %></p>
+        <button
+          class="likeButton <%= blog.likeStatus ? 'likedButton' : '' %>"
+          data-id="<%= blog._id %>"
+        >
+          Likes: <%= blog.likes.length %>
+        </button>
+      </div>
+      <% }) %> <% } else { %>
+      <p>no blogs have been posted yet.</p>
+      <% } %>
     </div>
     <script src="/js/index.js"></script>
     <script src="/js/sidebar.js"></script>
-</body>
+  </body>
 </html>
