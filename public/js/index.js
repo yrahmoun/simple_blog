@@ -4,6 +4,8 @@ const searchBar = document.getElementById("searchBar");
 const searchResults = document.getElementById("searchResults");
 const likeButton = document.querySelectorAll(".likeButton");
 
+const socket = io("http://localhost:5000");
+
 logoutBtn.forEach((button) => {
   button.addEventListener("click", async () => {
     try {
@@ -73,6 +75,13 @@ searchBar.addEventListener("input", async (event) => {
   }
 });
 
+socket.on("blogLikeChange", ({ blogId, blogLikes }) => {
+  const button = document.querySelector(`button[data-id="${blogId}"]`);
+  if (button) {
+    button.textContent = `Likes: ${blogLikes}`;
+  }
+});
+
 likeButton.forEach((button) => {
   button.addEventListener("click", async (e) => {
     const blogId = button.getAttribute("data-id");
@@ -86,7 +95,6 @@ likeButton.forEach((button) => {
       });
       if (response.ok) {
         const data = await response.json();
-        console.log(data.message);
         if (data.likeStatus) {
           e.target.classList.add("likedButton");
         } else {

@@ -45,11 +45,21 @@ mongoose
     console.log(err);
   });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`server up and running on port: ${port}`);
 });
 
+const io = require("socket.io")(server);
+
 app.use(userRoutes);
-app.use(blogRoutes);
+app.use(blogRoutes(io));
 app.use(profileRoutes);
 app.use(searchRoutes);
+
+io.on("connection", (socket) => {
+  console.log("soclet.io connection set.");
+
+  socket.on("disconnect", () => {
+    console.log("A client disconnected.");
+  });
+})
