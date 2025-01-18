@@ -4,7 +4,12 @@ const searchBar = document.getElementById("searchBar");
 const searchResults = document.getElementById("searchResults");
 const likeButton = document.querySelectorAll(".likeButton");
 
-const socket = io("http://localhost:5000");
+const socketUrl =
+  window.location.hostname === "localhost"
+    ? "http://localhost:5000"
+    : "https://simple-blog-xbox.onrender.com/";
+
+const socket = io(socketUrl);
 
 logoutBtn.forEach((button) => {
   button.addEventListener("click", async () => {
