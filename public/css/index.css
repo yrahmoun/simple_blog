@@ -293,6 +293,7 @@ a .buttons:active {
 }
 
 /* Blog Section Styling */
+.sortSection,
 .infoContainer,
 .blogSection {
   width: 100%;
@@ -403,7 +404,26 @@ a .buttons:active {
   background-color: #d32f2f;
 }
 
-/* Spde Bar Styling */
+/* Sort Section */
+
+.sortSection {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.sortSection input {
+  padding: 0px;
+  margin: 0px;
+}
+
+.sortSection h3 {
+  margin-right: auto;
+}
+
+/* Side Bar Styling */
 
 #menuOpen {
   display: none;

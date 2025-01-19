@@ -2,6 +2,7 @@ const express = require("express");
 const Blog = require("../models/blogModel");
 const upload = require("../middleware/multerConfig");
 const get_image_url = require("../middleware/imageUpload");
+const blogSorter = require("../middleware/blogSorter");
 
 module.exports = (io) => {
   const router = express.Router();
@@ -52,10 +53,15 @@ module.exports = (io) => {
         .populate("author", "username profilePic")
         .sort({ createdAt: -1 });
       const userId = req.session.userId;
-      const blogsWithLikeStatus = blogs.map((blog) => ({
+      let blogsWithLikeStatus = blogs.map((blog) => ({
         ...blog.toObject(),
         likeStatus: blog.likes.includes(userId),
       }));
+      if (req.query.sort) {
+        const option = req.query.sort;
+        const sortedBlogs = blogSorter(blogsWithLikeStatus, option);
+        return res.render("home", { blogs: sortedBlogs });
+      }
       res.render("home", { blogs: blogsWithLikeStatus });
     } catch (error) {
       console.log(error);
