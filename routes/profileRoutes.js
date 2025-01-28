@@ -3,6 +3,7 @@ const Blog = require("../models/blogModel");
 const User = require("../models/userModel");
 const upload = require("../middleware/multerConfig");
 const get_image_url = require("../middleware/imageUpload");
+const blogSorter = require("../middleware/blogSorter");
 
 const router = express.Router();
 
@@ -15,9 +16,14 @@ router.get("/profile", async (req, res) => {
     const blogs = await Blog.find({ author: userId }).sort({ createdAt: -1 });
     const blogsWithLikeStatus = blogs.map((blog) => ({
       ...blog.toObject(),
-      likeStatuts: blog.likes.includes(userId),
+      likeStatus: blog.likes.includes(userId),
     }));
     const user = await User.findById(userId);
+    if (req.query.sort) {
+      const option = req.query.sort;
+      const sortedBlogs = blogSorter(blogsWithLikeStatus, option);
+      return res.render("profile", { blogs: sortedBlogs, user });
+    }
     res.render("profile", { blogs: blogsWithLikeStatus, user });
   } catch (error) {
     console.log(error);
@@ -43,6 +49,11 @@ router.get("/profile/:user", async (req, res) => {
       ...blog.toObject(),
       likeStatus: blog.likes.includes(req.session.userId),
     }));
+    if (req.query.sort) {
+      const option = req.query.sort;
+      const sortedBlogs = blogSorter(blogsWithLikeStatus, option);
+      return res.render("userProfile", { blogs: sortedBlogs, user });
+    }
     res.render("userProfile", { blogs: blogsWithLikeStatus, user });
   } catch (error) {
     console.log(error);
